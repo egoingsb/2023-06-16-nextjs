@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import "./globals.css";
+import { useEffect, useState } from "react";
 
 export const metadata = {
   title: "Welcome!",
@@ -11,6 +13,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const [topics, setTopics] = useState([]);
+  console.log("🚀 ~ file: layout.tsx:17 ~ topics:", topics);
+  useEffect(() => {
+    fetch("http://localhost:3000/api/topics")
+      .then((resp) => resp.json())
+      .then((result) => {
+        console.log("result", result);
+        setTopics(result);
+      });
+  }, []);
   return (
     <html lang="en">
       <body>
@@ -19,12 +31,15 @@ export default function RootLayout({
         </h1>
         <input type="text" placeholder="search" />
         <ol>
-          <li>
-            <Link href="/read/1">html</Link>
-          </li>
-          <li>
-            <Link href="/read/2">css</Link>
-          </li>
+          {topics.map((t) => {
+            return (
+              // @ts-ignore
+              <li key={t.id}>
+                {/* @ts-ignore */}
+                <Link href={"/read/" + t.id}>{t.title}</Link>
+              </li>
+            );
+          })}
         </ol>
         {children}
         <ul>
