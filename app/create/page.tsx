@@ -25,6 +25,7 @@ export default function Create() {
           .then((resp) => resp.json())
           .then((result) => {
             router.push("/read/" + result.id);
+            router.refresh();
           });
       }}
     >
