@@ -4,9 +4,8 @@ type ReadProps = {
   };
 };
 export default async function Read(props: ReadProps) {
-  const resp = await fetch(
-    "http://localhost:3000/api/topics/" + props.params.id
-  );
+  const URL = "http://localhost:9999/topics/" + props.params.id;
+  const resp = await fetch(URL);
   const topic = await resp.json();
   return (
     <>

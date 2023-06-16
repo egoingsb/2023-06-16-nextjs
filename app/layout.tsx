@@ -12,7 +12,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const resp = await fetch("http://localhost:3000/api/topics");
+  const resp = await fetch("http://localhost:9999/topics");
   const topics = await resp.json();
   return (
     <html lang="en">
